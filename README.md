@@ -16,11 +16,11 @@ Add the sum to the sum of the digits that weren’t multiplied by 2.
 If the total’s last digit is 0 (or, put more formally, if the total modulo 10 is congruent to 0), the number is valid!
 That’s kind of confusing, so let’s try an example with David’s Visa: 4003600000000014.
 
-For the sake of discussion, let’s first underline every other digit, starting with the number’s second-to-last digit:
+For the sake of discussion, let’s first mark every other digit, starting with the number’s second-to-last digit:
 
-40036000000000[1]4
+**4**0**0**3**6**0**0**0**0**0**0**0**0**0**1**4
 
-Okay, let’s multiply each of the underlined digits by 2:
+Okay, let’s multiply each of the bold digits by 2:
 
 1•2 + 0•2 + 0•2 + 0•2 + 0•2 + 6•2 + 0•2 + 4•2
 
@@ -38,28 +38,42 @@ Now let’s add that sum (13) to the sum of the digits that weren’t multiplied
 
 Yup, the last digit in that sum (20) is a 0, so David’s card is legit!
 
-So, validating credit card numbers isn’t hard, but it does get a bit tedious by hand. Let’s write a program.
+So, validating credit card numbers isn’t hard, but it does get a bit tedious by hand. That's what this program does.
 
-Implementation Details
-In credit.c at right, write a program that prompts the user for a credit card number and then reports (via printf) whether it is a valid American Express, MasterCard, or Visa card number, per the definitions of each’s format herein. So that we can automate some tests of your code, we ask that your program’s last line of output be AMEX\n or MASTERCARD\n or VISA\n or INVALID\n, nothing more, nothing less. For simplicity, you may assume that the user’s input will be entirely numeric (i.e., devoid of hyphens, as might be printed on an actual card). But do not assume that the user’s input will fit in an int! Best to use get_long from CS50’s library to get users’ input. (Why?)
+## About this program
 
-Consider the below representative of how your own program should behave when passed a valid credit card number (sans hyphens).
+Credit.py is a program that prompts the user for a credit card number and then reports whether it is a valid American Express, MasterCard, or Visa card number, per the definitions of each’s format herein.
+This program uses a command line interface and was made only using Python.
+This program is one of week 6's exercises of Harvard's CS50 online course.
 
-$ ./credit
+## Usage
+
+You will need [Python](https://www.python.org/downloads/) to run this application.
+
+After cloning this repository and installing Python3, enter the project's folder through the command line and type the following to run the program:
+
+`python3 credit.py`
+
+The application will request a number, where you should input the credit card number to be tested.
+Although this is a simple application that will not store this number anywhere, **always be careful with sensitive information.**
+[Here](https://developer.paypal.com/docs/classic/payflow/payflow-pro/payflow-pro-testing/#credit-card-numbers-for-testing) are some fictional credit card numbers Paypal recommend using for tests.
+
+`Number: <type a credit card number>`
+
+The application will return if the inputed number is a Visa, Mastercard, Amex or invalid, a la the below:
+
+```
+$ python3 credit.py
 Number: 4003600000000014
 VISA
-Now, get_long itself will reject hyphens (and more) anyway:
+```
 
+The application will reject non-numeric inputs, asking again until receive a valid input or pressing Ctrl+C.
+
+```
 $ ./credit
 Number: 4003-6000-0000-0014
 Number: foo
 Number: 4003600000000014
 VISA
-But it’s up to you to catch inputs that are not credit card numbers (e.g., a phone number), even if numeric:
-
-$ ./credit
-Number: 6176292929
-INVALID
-Test out your program with a whole bunch of inputs, both valid and invalid. (We certainly will!) Here are a few card numbers that PayPal recommends for testing.
-
-If your program behaves incorrectly on some inputs (or doesn’t compile at all), time to debug!
+```
